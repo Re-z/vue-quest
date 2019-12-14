@@ -1,18 +1,18 @@
 const vue = new Vue({
     el: '.app',
     data: {
-        testIsShowed: true,
+        testIsShowed: false,
         currentStep: 0,
         stepResultIsShowed: false,
         chosenAnswer: '',
         chosenSellBuy: '',
         isChosenAnswerCorrect: false,
         resultPopupIsShowed: false,
-        timeCounter: 4,
+        timeCounter: 10,
         steps: [
             {
                 id: 1,
-                mainImg: 'http://www.placecage.com/1200/499',
+                mainImg: 'img/step-0.png',
                 questionTheme: 'Apple',
                 question: 'Акции всемирноизвестного производителя портативной техники apple выберите, как эта новость повлияет на график актива. нажимайте "купить" если уверены в росте, "продать" - в падении.',
                 answers: ['Производственная активность в США выросла по итогам предыдущего месяца','Безработица в Еврозоне оказалась значительно ниже ожиданий', 'Эксперты разочарованы презентацией нового iPhone, выразив сомнения в росте продаж'],
@@ -60,15 +60,19 @@ const vue = new Vue({
                 correctSellBuy: 'sell',
                 answerDescription: 'Главная новость из трех – по евро (EUR). Все, что касается Европейского Центробанка, всегда моментально замечается рынками. Тем более, что снижение ставок делает вложения в валюте менее доходными для инвесторов, а также увеличивает «предложение» (количество) валюты, понижая ее стоимость. Разумный вариант – ПРОДАТЬ EURUSD.'
             },
-
         ]
     },
     methods: {
+        startTest(){
+            this.testIsShowed = true,
+            this.decreaseCounter()
+        },
+
         chooseAnswer(answer) {
             this.chosenAnswer = answer;
         },
         decreaseCounter() {
-            this.timeCounter = 4;
+            this.timeCounter = 10;
             let timerFunc = setInterval(() => {
                 if(this.timeCounter > 0) {
                     this.timeCounter--;
@@ -98,9 +102,8 @@ const vue = new Vue({
                 this.currentStep++;
                 this.stepResultIsShowed = false;
                 this.chosenAnswer = '';
-                this.decreaseCounter();
+                this.timeCounter = 10
             }
-
         },
     },
     computed: {
@@ -109,9 +112,6 @@ const vue = new Vue({
         },
 
     },
-    mounted() {
-        this.decreaseCounter()
-    }
 
 
 })
