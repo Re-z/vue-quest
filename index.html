@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div class="app">
+        <div class="pre"
+            v-if="testIsShowed === false"
+        >
+            <div class="container">
+                <div class="pre__img-wrap">
+                    <h1 class="text-center"><span class="text-success">Игра</span> <br>Большой портфель</h1>
+                    <img class="pre__main-img" src="img/tablet.png" alt="">
+                    <img class="pre__img pre__img_left" src="img/woman_greeting.svg" alt="">
+                    <img class="pre__img pre__img_right" src="img/man_greeting.svg" alt="">
+                </div>
+                <div class="row d-flex justify-content-center mt-5">
+                    <div class="col-md-3 ">
+                        <button
+                            @click="testIsShowed = true"
+                            class="btn btn-success btn-lg w-100">Играть!</button>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-around mt-5 align-items-stretch">
+                    <div class="col-md-6">
+                        <div class="card bg-light h-100">
+                            <div class="card-body">
+                                <p class="card-text mb-0">В вашем распоряжении – виртуальный портфель инвестора. 5 активов, 5 раундов по 60 секунд, 3 экономические новости в каждом. Выберите подходящую, откройте сделку и сразу проверьте себя!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-light h-100">
+                            <div class="card-body ">
+                                <p class="card-text mb-0">Пройдите все 5 раундов и узнайте, к какому типу инвесторов вы относитесь: Наблюдатель, Начинающий, Практик, Опытный, Профи или Эксперт.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="test"
+             v-if="testIsShowed === true"
+        >
+            <div class="container">
+                <div class="steps row d-flex justify-content-between align-items-center">
+                    <div class="col-md-6 p-2 d-flex align-items-center">
+                        <p class="mr-3 font-weight-bold">Прогресс: </p>
+                        <ul class="d-flex steps__list">
+                            <li
+                                v-for="(item, index) in steps"
+                                :class="{'active': currentStepObj.id === index+1}"
+                            >
+                                {{item.id}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="center card">
+                            <div style="color: white"
+                                 class="card-body text-center"
+                                :class="{'bg-success': timeCounter > 60, 'bg-warning' : timeCounter > 20 && timeCounter <=60, 'bg-danger': timeCounter <= 20}"
+                            >
+                                <span>Осталось <strong>{{timeCounter}}</strong> секунд</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-between">
+                    <div class="col-md-8">
+                        <div class="row test__big-img">
+                            <img class="img-fluid"
+                                 :src="currentStepObj.mainImg" alt="">
+                        </div>
+
+                        <div class="mt-5">
+                            <h4> Выберите новость, которая относится к активу:</h4>
+                            <div class="row test__box-quest mt-3">
+                                <div class="col-md-12"
+                                     @click="chooseAnswer(item)"
+                                     v-for="item in currentStepObj.answers"
+                                     :key="item"
+                                >
+                                    <div
+                                            style="cursor: pointer"
+                                            class="card mb-3"
+                                            :class="{'bg-warning':chosenAnswer === item,
+                                     'bg-light':chosenAnswer !== item
+                                    }"
+                                    >
+                                        <div class="card-body">
+                                            <p class="card-text">{{ item }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div v-if="stepResultIsShowed === false" class="col-md-3 d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Вопрос:</h4>
+                            <p>{{currentStepObj.question}}</p>
+                        </div>
+                        <div>
+                            <p class="line bg-light w-100"></p>
+                            <h2 class="font-weight-bold text-primary text-center text-uppercase">{{currentStepObj.questionTheme}}</h2>
+                            <p class="line bg-light w-100"></p>
+                        </div>
+                        <div class="row" :class="{'non-selectable': chosenAnswer === ''}">
+                            <button @click="showResult('buy')" class="w-100 mb-1 btn-lg col-md-12 btn btn-success">Купить</button>
+                            <button @click="showResult('sell')" class="w-100 btn-lg col-md-12 btn btn-danger">Продать</button>
+                        </div>
+                    </div>
+                    <div v-else class="col-md-3 d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Ответ:</h4>
+                            <p>{{currentStepObj.answerDescription}}</p>
+                        </div>
+                        <div>
+                            <p class="line bg-light w-100"></p>
+                            <div class="text-center"  v-if="isChosenAnswerCorrect">
+                                <img src="img/man_correct_small.svg" alt="">
+                                <h6 class="mt-3 font-weight-bold text-success text-center text-uppercase">Ваш Ответ правильный!</h6>
+                            </div>
+                            <div v-else class="text-center">
+                                <img src="img/man_incorrect_small.svg" alt="">
+                                <h6 class="mt-3 font-weight-bold text-danger text-center text-uppercase">Ваш Ответ неправильный</h6>
+                            </div>
+                            <p class="line bg-light w-100"></p>
+                        </div>
+
+                        <div class="row">
+                            <button @click="proceedNextStep" class=" mb-1 btn-lg col-md-12 btn btn-success">Продолжить тест</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="overlay" v-if="resultPopupIsShowed">
+                    <div class="modal" style="display: block">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content popup-body">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Поздравляем! Вы прошли тест!</h5>
+                                </div>
+                                <div class="modal-body ">
+                                    <div class="row">
+                                        <div class="col-md-6 text-center">
+                                            <img src="img/man_correct_small.svg" alt="">
+                                            <h5 class="mt-4">
+                                                Для того, чтобы узнать ваш тип инвестора и рекомендуемые стратегии действия, отправьте форму
+                                            </h5>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Ваше имя">
+                                                </div>
+                                                <div class="form-group">
+                                                    <select class="form-control">
+                                                        <option selected>Выберите страну</option>
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="email" class="form-control" placeholder="Ваш емейл">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="password" class="form-control" placeholder="Ваш пароль">
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <input type="number" class="form-control" placeholder="Код">
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="number" class="form-control" placeholder="Телефонный номер">
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-end mt-4 mb-2">
+                                                    <button type="submit" class="w-50 btn btn-success btn-lg">Отправить</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <p class="font-italic">Инвестируйте ответственно. <strong> 77% счетов розничных инвесторов несут убытки от торговли CFD с этим провайдером. </strong> Вам следует точно убедиться, что вы понимаете механизм торговли CFD и можете позволить себе рисковать деньгами.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

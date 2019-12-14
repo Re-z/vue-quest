@@ -1,0 +1,89 @@
+*  {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+}
+.pre {
+    /*background: url("https://sanjivcpa.com/wp-content/uploads/2018/04/iStock-693640648.jpg") center center no-repeat;*/
+    /*-webkit-background-size: cover;*/
+    /*background-size: cover;*/
+    padding-top: 100px;
+}
+.pre__img-wrap {
+    /*background: url("../img/tablet.png");*/
+    /*-webkit-background-size: cover;*/
+    /*background-size: cover;*/
+    position: relative;
+}
+.pre h1 {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.pre h1 span {
+    font-size: 24px;
+}
+.pre__img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.pre__main-img {
+    position: relative;
+    z-index: 10;
+}
+.pre__img_left {
+    left: 0;
+}
+.pre__img_right {
+    right: 0;
+}
+.steps {
+    padding: 20px 0;
+}
+.steps__list li {
+    margin-right: 10px;
+    padding: 5px 13px;
+    border-radius: 50%;
+    text-align: center;
+    border: 2px solid green;
+    font-weight: bold;
+    opacity: 0.3;
+}
+.steps__list li.active {
+    opacity: 1;
+}
+.line {
+    height: 3px;
+}
+.non-selectable {
+    opacity: .3;
+    pointer-events: none;
+}
+.overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0, .5);
+    height:  100vh;
+}
+.modal-dialog {
+    max-width: 800px !important;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.popup-body {
+    background-image: url(../img/popup_bg-graph-only.png);
+    background-size: cover;
+    background-position: right center;
+}
