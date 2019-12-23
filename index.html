@@ -5,14 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-
+    <title>Monfex</title>
+    <meta name="description" content="">
 
     <style>
-        /*body {*/
-        /*    -webkit-user-select: none;*/
-        /*    overflow: hidden;*/
-        /*}*/
         .vertical-centered-box {
             position: absolute;
             width: 100%;
@@ -117,11 +113,9 @@
         [not-existing] {
             zoom: 1;
         }
-
         .app {
             display: none;
         }
-
     </style>
 </head>
 <body>
@@ -156,15 +150,14 @@
                             <source class="pre__main-img img-fluid" srcset="img/tablet.png" type="image/jpeg">
                             <img class="pre__main-img img-fluid" src="img/tablet.png" alt="Alt Text!">
                         </picture>
-<!--                        <img class="pre__main-img img-fluid" src="img/tablet.png" alt="">-->
                         <img class="pre__img pre__img_left" src="img/woman_greeting.svg" alt="">
                         <img class="pre__img pre__img_right" src="img/man_greeting.svg" alt="">
                     </div>
                     <div class="row d-flex justify-content-center mt-5">
                         <div class="col-md-3 ">
                             <button
-                                    @click="startTest"
-                                    class="btn btn-success btn-lg w-100">Играть!</button>
+                                @click="startTest"
+                                class="btn btn-success btn-lg w-100">Играть!</button>
                         </div>
                     </div>
                     <div class="row d-flex justify-content-around mt-5 align-items-stretch">
@@ -235,11 +228,8 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-
-
                         </div>
                             <div v-if="stepResultIsShowed === false" class="col-md-3 d-flex flex-column justify-content-between animation-appear-right">
                                 <div>
@@ -288,7 +278,6 @@
                                 <button @click="proceedNextStep" class="text-overflow mb-1 btn-lg col-md-12 btn btn-success">Продолжить тест</button>
                             </div>
                         </div>
-
                     </div>
                     <transition name="fade">
                         <div class="overlay" v-show="resultPopupIsShowed">
@@ -305,7 +294,6 @@
                                                     <h5 class="mt-4">
                                                         Для того, чтобы узнать ваш тип инвестора и рекомендуемые стратегии действия, отправьте форму
                                                     </h5>
-
                                                 </div>
                                                 <div class="col-md-6 _mnfx-form-container" data-action="https://lp.monfex.com/api/action/Xw2ejdQucmaP/register" id="regForm">
                                                 </div>
@@ -352,7 +340,7 @@
         const regFormContainer = document.querySelectorAll('._mnfx-form-container');
         if (regFormContainer.length > 0) {
             for (let i = 0; i < regFormContainer.length; i++) {
-                settingRegisterForm(regFormContainer[i]);
+                settingRegisterForm(regFormContainer[i], {fname: true});
             }
         }
     })
