@@ -198,16 +198,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-md-3 col-sm-12">
-                            <div class="center card">
-                                <div style="color: white"
-                                     class="card-body text-center"
-                                     :class="{'bg-success': timeCounter > 60, 'bg-warning' : timeCounter > 20 && timeCounter <=60, 'bg-danger': timeCounter <= 20}"
-                                >
-                                    <span>Осталось <strong>{{timeCounter}}</strong> секунд</span>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
 
                     <div class="row d-flex justify-content-between">
@@ -247,6 +238,16 @@
                         </div>
                             <div v-if="stepResultIsShowed === false" class="col-md-3 d-flex flex-column justify-content-between animation-appear-right">
                                 <div>
+                                    <div class="mb-3">
+                                        <div class="center card">
+                                            <div style="color: white"
+                                                 class="card-body text-center"
+                                                 :class="{'bg-success': timeCounter > 40, 'bg-warning' : timeCounter > 20 && timeCounter <=40, 'bg-danger': timeCounter <= 20}"
+                                            >
+                                                <span>Осталось <strong>{{timeCounter}}</strong> секунд</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <h4>Вопрос:</h4>
                                     <p v-html="currentStepObj.question"></p>
                                 </div>
@@ -301,37 +302,7 @@
                                                     </h5>
 
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <form>
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="Ваше имя">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select class="form-control">
-                                                                <option selected>Выберите страну</option>
-                                                                <option>1</option>
-                                                                <option>2</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="email" class="form-control" placeholder="Ваш емейл">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="password" class="form-control" placeholder="Ваш пароль">
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <div class="col-sm-4">
-                                                                <input type="number" class="form-control" placeholder="Код">
-                                                            </div>
-                                                            <div class="col-sm-8 mt-3 mt-lg-0 mt-xl-0 mt-md-0 mt-sm-0">
-                                                                <input type="number" class="form-control" placeholder="Телефонный номер">
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex justify-content-end mt-4 mb-2">
-                                                            <button type="submit" class="w-50 btn btn-success btn-lg">Отправить</button>
-                                                        </div>
-                                                    </form>
+                                                <div class="col-md-6 _mnfx-form-container" data-action=":route(register)" id="regForm">
                                                 </div>
                                             </div>
                                         </div>
@@ -340,33 +311,46 @@
                             </div>
                         </div>
                     </transition>
-
-
                 </div>
             </div>
         </transition>
 
     </div>
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+<script  src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+    <script>
+        var srcUtils = "pl/js/intlTel/js/utils.js";
+        var successUrl = 'https://www.monfex.com/ru/register/success';
+    </script>
+    <script src="js/scriptForm.js"></script>
+    <link rel="stylesheet" href="pl/css/select2.css">
+    <link rel="stylesheet" href="pl/css/form.css">
 <script>
-    //hide preloader function
     document.addEventListener('DOMContentLoaded', () => {
+        //hide preloader function
+
         setTimeout(() => {
             const preloader = document.querySelector('#preloader'),
                 app = document.querySelector('.app');
             preloader.classList.add('is-hidden');
             app.classList.add('is-visible')
-        }, 1000)
+        }, 1000);
+
+        // form init
+        const regFormContainer = document.querySelectorAll('._mnfx-form-container');
+        if (regFormContainer.length > 0) {
+            for (let i = 0; i < regFormContainer.length; i++) {
+                settingRegisterForm(regFormContainer[i]);
+            }
+        }
     })
-
-
 </script>
-
-
 </body>
 </html>
