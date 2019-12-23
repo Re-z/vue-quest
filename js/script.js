@@ -1,14 +1,14 @@
 const vue = new Vue({
     el: '.app',
     data: {
-        testIsShowed: false,
+        testIsShowed: false, //shows "page" with questions
         currentStep: 0,
         stepResultIsShowed: false,
         chosenAnswer: '',
         chosenSellBuy: '',
         isChosenAnswerCorrect: false,
-        resultPopupIsShowed: false,
-        timeCounter: 10,
+        resultPopupIsShowed: false, //shows final popup
+        timeCounter: 10, //time per question
         steps: [
             {
                 id: 1,
@@ -22,7 +22,7 @@ const vue = new Vue({
             },
             {
                 id: 2,
-                mainImg: 'http://www.placecage.com/1200/501',
+                mainImg: 'img/step-0.png',
                 questionTheme: 'Boeing',
                 question: 'Акции одного из крупнейших мировых производителей авиационной, космической и военной техники boeing выберите, как эта новость повлияет на график актива. нажимайте "купить" если уверены в росте, "продать" - в падении.',
                 answers: ['Курс британского фунта начал падать из-за того, что появились сообщения о возможном выходе Британии из состава ЕС «без сделки»', 'Министры финансов G20 договорились к 2020 году начать облагать налогом IT-компании', 'Еще одна крупная авиакомпания заявила о расторжении контракта с Boeing из-за проблем в системе безопасности самолетов'],
@@ -32,7 +32,7 @@ const vue = new Vue({
             },
             {
                 id: 3,
-                mainImg: 'http://www.placecage.com/1200/503',
+                mainImg: 'img/step-0.png',
                 questionTheme: 'Gold',
                 question: 'Золото. выберите, как эта новость повлияет на график актива. нажимайте "купить" если уверены в росте, "продать" - в падении.',
                 answers: ['Объем промышленного производства в Еврозоне вырос и полностью совпал с прогнозом', 'Barrick Gold, крупнейшая золотодобывающая компания в мире, сообщила об аварии на одном из своих месторождении и о прекращении разработки до устранения последствий.','Стоимость нефти резко снизилась на сообщениях о росте запасов в США'],
@@ -42,7 +42,7 @@ const vue = new Vue({
             },
             {
                 id: 4,
-                mainImg: 'http://www.placecage.com/1200/501',
+                mainImg: 'img/step-0.png',
                 questionTheme: 'USD/\RUB',
                 question: 'Пара доллар-рубль. выберите, как эта новость повлияет на график актива. нажимайте "купить" если уверены в росте, "продать" - в падении.',
                 answers: ['Дональд Трамп сообщил о введении новой порции санкций против России, которые эксперты охарактеризовали как «неожиданно жесткие»', 'Банк России принял решение сохранить ключевую процентную ставку, как того от него и ждал рынок', 'Помощник президента России Юрий Ушаков заявил, что следующий саммит G20 пройдет в ноябре 2020 года в Саудовской Аравии'],
@@ -52,7 +52,7 @@ const vue = new Vue({
             },
             {
                 id: 5,
-                mainImg: 'http://www.placecage.com/1200/500',
+                mainImg: 'img/step-0.png',
                 questionTheme: 'USD/\EUR',
                 question: 'Пара евро-доллар.выберите, как эта новость повлияет на график актива. нажимайте "купить" если уверены в росте, "продать" - в падении.',
                 answers: ['Президент ЕЦБ Марио Драги во время пресс-конференции неожиданно для многих заговорил о снижении ключевой ставки', 'Reebok отчиталась о рекордных продажах за всю историю компании', 'ВВП Швейцарии резко сократился из-за падения объемов производства часов'],
@@ -63,54 +63,61 @@ const vue = new Vue({
         ]
     },
     methods: {
+        //initialize quest page
         startTest(){
             this.testIsShowed = true,
-            this.decreaseCounter()
+            this.decreaseCounter();
         },
-
         chooseAnswer(answer) {
             this.chosenAnswer = answer;
         },
+        // decrease time
         decreaseCounter() {
-            this.timeCounter = 10;
-            let timerFunc = setInterval(() => {
+            this.timeCounter = 10; //time per question
+            //global variable that stores interval function. Global because it needs to be reseted
+            window.timerFunc = setInterval(() => {
                 if(this.timeCounter > 0) {
                     this.timeCounter--;
                 } else {
+                    // if time is less than timeCounter - show incorrect result and clear interval
                     clearInterval(timerFunc);
-                    this.chosenAnswer = 'No answer'
-                    this.showResult()
+                    this.showResult('Incorrect answer!');
                 }
-            },1000)
+            },1000);
         },
         showResult(val) {
-            if(this.chosenAnswer) {
-                this.chosenSellBuy = val;
+                this.chosenSellBuy = val; // gets chosen buy or sell value from click event
                 if(
+                    // if answer is correct and sell\buy is correct - show succes text
                     this.chosenAnswer === this.currentStepObj.correctAnswer
                     && this.chosenSellBuy === this.currentStepObj.correctSellBuy
                 ) {
-                    this.isChosenAnswerCorrect = true
+                    this.isChosenAnswerCorrect = true;
+                } else {
+                    this.isChosenAnswerCorrect = false;
                 }
+                //clear interval and show results
+                clearInterval(timerFunc);
                 this.stepResultIsShowed = true
-            }
         },
         proceedNextStep() {
+            // if question number is more than total questions - show result popup
+            // else - proceed next question
             if(this.currentStep === this.steps.length -1) {
                 this.resultPopupIsShowed = true
             } else {
                 this.currentStep++;
                 this.stepResultIsShowed = false;
                 this.chosenAnswer = '';
-                this.timeCounter = 10
+                this.decreaseCounter();
             }
         },
     },
     computed: {
+        //stores data about current question object
         currentStepObj() {
             return this.steps[this.currentStep]
         },
-
     },
 
 

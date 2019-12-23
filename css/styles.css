@@ -1,7 +1,7 @@
 *  {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
-    -khtml-user-select: none;
+    -html-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -9,11 +9,14 @@
 body {
     font-family: 'Roboto', sans-serif;
 }
+.app {
+    background: #F2F8FB;
+}
 .pre {
-    /*background: url("https://sanjivcpa.com/wp-content/uploads/2018/04/iStock-693640648.jpg") center center no-repeat;*/
-    /*-webkit-background-size: cover;*/
-    /*background-size: cover;*/
+    background: url(../img/timer_bg.png) top right no-repeat, url("../img/graph_bg.png") top left no-repeat;
+    background-size: 800px;
     padding-top: 100px;
+    min-height: 100vh;
 }
 .pre__img-wrap {
     /*background: url("../img/tablet.png");*/
@@ -42,6 +45,9 @@ body {
 }
 .pre__img_right {
     right: 0;
+}
+.test {
+    min-height: 100vh;
 }
 .steps {
     padding: 20px 0;
@@ -82,14 +88,90 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+}
 .popup-body {
     background-image: url(../img/popup_bg-graph-only.png);
     background-size: cover;
     background-position: right center;
 }
-.fade-enter-active, .fade-leave-active {
-    transition: opacity 15s;
+.page-appear-enter-active, .page-appear-leave-active {
+    transition: transform .5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
-    opacity: 0;
+.page-appear-enter, .page-appear-leave-to {
+    transform: translateY(-400px);
+}
+
+.animation-appear-top {
+    animation: animation-appear-top linear .4s;
+    will-change: transform;
+}
+.animation-appear-bottom {
+    animation: animation-appear-bottom linear .4s;
+    will-change: transform;
+}
+.animation-appear-left-0 {
+    animation: animation-appear-left linear .4s backwards;
+    animation-delay: 0s;
+    will-change: transform, opacity;
+}
+.animation-appear-left-1 {
+    animation: animation-appear-left linear .4s backwards;
+    animation-delay: .1s;
+    will-change: transform, opacity;
+}
+.animation-appear-left-2 {
+    animation: animation-appear-left linear .4s backwards;
+    animation-delay: .2s;
+    will-change: transform, opacity;
+}
+.animation-appear-right {
+    animation: animation-appear-right linear .4s;
+    will-change: transform, opacity;
+}
+
+@keyframes animation-appear-left {
+    from {
+        transform: translateX(-200px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes animation-appear-right {
+    from {
+        transform: translateX(200px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes animation-appear-top {
+    from {
+        transform: translateY(-200px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes animation-appear-bottom {
+    from {
+        transform: translateY(200px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
