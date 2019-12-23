@@ -6,23 +6,152 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
+
+    <style>
+        /*body {*/
+        /*    -webkit-user-select: none;*/
+        /*    overflow: hidden;*/
+        /*}*/
+        .vertical-centered-box {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+        .vertical-centered-box:after {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -0.25em;
+        }
+        .vertical-centered-box .content {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-animation: fadein  1.5s linear forwards;
+            -moz-animation: fadein  1.5s linear forwards;
+            -o-animation: fadein  1.5s linear forwards;
+            animation: fadein  1.5s linear forwards;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: left;
+            font-size: 0;
+            opacity: 0;
+        }
+        .loader-line-mask {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 50px;
+            height: 100px;
+            margin-left: -50px;
+            margin-top: -50px;
+            overflow: hidden;
+            -webkit-transform-origin: 50px 50px;
+            -moz-transform-origin: 50px 50px;
+            -ms-transform-origin: 50px 50px;
+            -o-transform-origin: 50px 50px;
+            transform-origin: 50px 50px;
+            -webkit-mask-image: -webkit-linear-gradient(top, #000000, rgba(0, 0, 0, 0));
+            mix-blend-mode: hard-light;
+            opacity: 0.8;
+        }
+        .loader-line-mask .loader-line {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        .loader-line-mask.one {
+            -webkit-animation: rotate 2s infinite linear;
+            -moz-animation: rotate 2s infinite linear;
+            -o-animation: rotate 2s infinite linear;
+            animation: rotate 2s infinite linear;
+        }
+        .loader-line-mask.one .loader-line {
+            box-shadow: inset 0 0 0 8px #77C170;
+        }
+        .loader-line-mask.two {
+            -webkit-animation: rotate 1.8s 0.5s infinite linear;
+            -moz-animation: rotate 1.8s 0.5s infinite linear;
+            -o-animation: rotate 1.8s 0.5s infinite linear;
+            animation: rotate 1.8s 0.5s infinite linear;
+        }
+        .loader-line-mask.two .loader-line {
+            box-shadow: inset 0 0 0 8px #F25F5C;
+        }
+        .loader-line-mask.three {
+            -webkit-animation: rotate 2s 1s infinite linear;
+            -moz-animation: rotate 2s 1s infinite linear;
+            -o-animation: rotate 2s 1s infinite linear;
+            animation: rotate 2s 1s infinite linear;
+        }
+        .loader-line-mask.three .loader-line {
+            box-shadow: inset 0 0 0 8px #FFE066;
+        }
+        .loader-line-mask.four {
+            -webkit-animation: rotate 1.8s 1.4s infinite linear;
+            -moz-animation: rotate 1.8s 1.4s infinite linear;
+            -o-animation: rotate 1.8s 1.4s infinite linear;
+            animation: rotate 1.8s 1.4s infinite linear;
+        }
+        .loader-line-mask.four .loader-line {
+            box-shadow: inset 0 0 0 8px #247BA0;
+        }
+        lesshat-selector {
+            -lh-property: 0; }
+        @-webkit-keyframes rotate{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); }}
+        @-moz-keyframes rotate{ 0% { -moz-transform: rotate(0deg); } 100% { -moz-transform: rotate(360deg); }}
+        @-o-keyframes rotate{ 0% { -o-transform: rotate(0deg); } 100% { -o-transform: rotate(360deg); }}
+        @keyframes rotate{ 0% {-webkit-transform: rotate(0deg);-moz-transform: rotate(0deg);-ms-transform: rotate(0deg);transform: rotate(0deg); } 100% {-webkit-transform: rotate(360deg);-moz-transform: rotate(360deg);-ms-transform: rotate(360deg);transform: rotate(360deg); }}
+        [not-existing] {
+            zoom: 1;
+        }
+        lesshat-selector {
+            -lh-property: 0; }
+        @-webkit-keyframes fadein{ 0% { opacity: 0; } 100% { opacity: 1; }}
+        @-moz-keyframes fadein{ 0% { opacity: 0; } 100% { opacity: 1; }}
+        @-o-keyframes fadein{ 0% { opacity: 0; } 100% { opacity: 1; }}
+        @keyframes fadein{ 0% { opacity: 0; } 100% { opacity: 1; }}
+        [not-existing] {
+            zoom: 1;
+        }
+
+        .app {
+            display: none;
+        }
+
+    </style>
 </head>
 <body>
-    <div class="app">
+<!--preloader-->
+<div class="vertical-centered-box" id="preloader">
+    <div class="content">
+        <div class="loader-circle"></div>
+        <div class="loader-line-mask one">
+            <div class="loader-line"></div>
+        </div>
+        <div class="loader-line-mask two">
+            <div class="loader-line"></div>
+        </div>
+        <div class="loader-line-mask three">
+            <div class="loader-line"></div>
+        </div>
+        <div class="loader-line-mask four">
+            <div class="loader-line"></div>
+        </div>
+    </div>
+</div>
+<!--    start vue app-->
+    <div class="app" >
 
             <div class="pre"
-                 v-if="!testIsShowed"
-            >
+                 v-if="!testIsShowed">
                 <div class="container">
                     <div class="pre__img-wrap">
-                        <h1 class="text-center"><span class="text-success">Игра</span> <br>Большой портфель</h1>
-                        <img class="pre__main-img" src="img/tablet.png" alt="">
+                        <h1 class="text-center position-relative "><span class="text-success">Игра</span> <br>Большой портфель</h1>
+                        <img class="pre__main-img img-fluid" src="img/tablet.png" alt="">
                         <img class="pre__img pre__img_left" src="img/woman_greeting.svg" alt="">
                         <img class="pre__img pre__img_right" src="img/man_greeting.svg" alt="">
                     </div>
@@ -41,7 +170,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mt-3 mt-md-0 mt-xl-0 mt-lg-0">
                             <div class="card bg-light h-100">
                                 <div class="card-body ">
                                     <p class="card-text mb-0">Пройдите все 5 раундов и узнайте, к какому типу инвесторов вы относитесь: Наблюдатель, Начинающий, Практик, Опытный, Профи или Эксперт.</p>
@@ -58,7 +187,7 @@
             >
                 <div class="container overflow-hidden">
                     <div class="steps row d-flex justify-content-between align-items-center">
-                        <div class="col-md-6 p-2 d-flex align-items-center">
+                        <div class="col-md-6 col-sm-12 d-flex align-items-center">
                             <p class="mr-3 font-weight-bold">Прогресс: </p>
                             <ul class="d-flex steps__list">
                                 <li
@@ -69,7 +198,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 col-sm-12">
                             <div class="center card">
                                 <div style="color: white"
                                      class="card-body text-center"
@@ -83,7 +212,7 @@
 
                     <div class="row d-flex justify-content-between">
                         <div class="col-md-8">
-                            <div class="row test__big-img">
+                            <div class="test__big-img">
                                 <img class="img-fluid"
                                      :src="currentStepObj.mainImg" alt="">
                             </div>
@@ -119,14 +248,14 @@
                             <div v-if="stepResultIsShowed === false" class="col-md-3 d-flex flex-column justify-content-between animation-appear-right">
                                 <div>
                                     <h4>Вопрос:</h4>
-                                    <p>{{currentStepObj.question}}</p>
+                                    <p v-html="currentStepObj.question"></p>
                                 </div>
                                 <div>
                                     <p class="line bg-light w-100"></p>
                                     <h2 class="font-weight-bold text-primary text-center text-uppercase">{{currentStepObj.questionTheme}}</h2>
                                     <p class="line bg-light w-100"></p>
                                 </div>
-                                <div class="row" :class="{'non-selectable': chosenAnswer === ''}">
+                                <div class="" :class="{'non-selectable': chosenAnswer === ''}">
                                     <button @click="showResult('buy')" class="w-100 mb-1 btn-lg col-md-12 btn btn-success">Купить</button>
                                     <button @click="showResult('sell')" class="w-100 btn-lg col-md-12 btn btn-danger">Продать</button>
                                 </div>
@@ -134,23 +263,23 @@
                         <div v-else class="col-md-3 d-flex flex-column justify-content-between overflow-hidden">
                             <div class="animation-appear-top" >
                                 <h4>Ответ:</h4>
-                                <p>{{currentStepObj.answerDescription}}</p>
+                                <p v-html="currentStepObj.answerDescription"></p>
                             </div>
                             <div class="animation-appear-bottom">
                                 <p class="line bg-light w-100"></p>
                                 <div class="text-center"  v-if="isChosenAnswerCorrect">
-                                    <img src="img/man_correct_small.svg" alt="">
+                                    <img class="img-fluid" src="img/man_correct_small.svg" alt="">
                                     <h6 class="mt-3 font-weight-bold text-success text-center text-uppercase ">Ваш Ответ правильный!</h6>
                                 </div>
                                 <div v-else class="text-center">
-                                    <img src="img/man_incorrect_small.svg" alt="">
+                                    <img class="img-fluid" src="img/man_incorrect_small.svg" alt="">
                                     <h6 class="mt-3 font-weight-bold text-danger text-center text-uppercase">Ваш Ответ неправильный</h6>
                                 </div>
                                 <p class="line bg-light w-100"></p>
                             </div>
 
-                            <div class="row animation-appear-bottom">
-                                <button @click="proceedNextStep" class=" mb-1 btn-lg col-md-12 btn btn-success">Продолжить тест</button>
+                            <div class=" animation-appear-bottom">
+                                <button @click="proceedNextStep" class="text-overflow mb-1 btn-lg col-md-12 btn btn-success">Продолжить тест</button>
                             </div>
                         </div>
 
@@ -195,7 +324,7 @@
                                                             <div class="col-sm-4">
                                                                 <input type="number" class="form-control" placeholder="Код">
                                                             </div>
-                                                            <div class="col-sm-8">
+                                                            <div class="col-sm-8 mt-3 mt-lg-0 mt-xl-0 mt-md-0 mt-sm-0">
                                                                 <input type="number" class="form-control" placeholder="Телефонный номер">
                                                             </div>
                                                         </div>
@@ -218,7 +347,26 @@
         </transition>
 
     </div>
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="js/script.js"></script>
+<script>
+    //hide preloader function
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            const preloader = document.querySelector('#preloader'),
+                app = document.querySelector('.app');
+            preloader.classList.add('is-hidden');
+            app.classList.add('is-visible')
+        }, 1000)
+    })
+
+
+</script>
+
+
 </body>
 </html>

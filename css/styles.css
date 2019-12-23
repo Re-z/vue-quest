@@ -8,16 +8,22 @@
 }
 body {
     font-family: 'Roboto', sans-serif;
-}
-.app {
     background: #F2F8FB;
+}
+.is-hidden {
+    display: none;
+}
+.is-visible {
+    display: block;
 }
 .pre {
     background: url(../img/timer_bg.png) top right no-repeat, url("../img/graph_bg.png") top left no-repeat;
     background-size: 800px;
     padding-top: 100px;
+    padding-bottom: 50px;
     min-height: 100vh;
 }
+
 .pre__img-wrap {
     /*background: url("../img/tablet.png");*/
     /*-webkit-background-size: cover;*/
@@ -27,6 +33,7 @@ body {
 .pre h1 {
     text-transform: uppercase;
     font-weight: bold;
+    z-index: 1;
 }
 .pre h1 span {
     font-size: 24px;
@@ -48,6 +55,7 @@ body {
 }
 .test {
     min-height: 100vh;
+    padding-bottom: 50px;
 }
 .steps {
     padding: 20px 0;
@@ -80,8 +88,21 @@ body {
     background: rgba(0,0,0, .5);
     height:  100vh;
 }
+.text-overflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+    white-space: nowrap;
+}
 .modal-dialog {
     max-width: 800px !important;
+    /*bootstrap hack to get scrollable modal*/
+    overflow-y: initial !important
+}
+.modal-body{
+    /*bootstrap hack to get scrollable modal*/
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
 }
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
@@ -175,3 +196,23 @@ input[type=number]::-webkit-outer-spin-button {
         opacity: 1;
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .pre {
+        background-size: 500px;
+    }
+    .pre__img_right {
+        display: none;
+    }
+}
+@media screen and (max-width: 600px) {
+    .pre__img_left {
+        display: none;
+    }
+    .pre {
+        background: url(../img/graph_bg.png) center center no-repeat;
+        background-size: cover;
+        padding-top: 50px;
+    }
+}
+
