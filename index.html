@@ -318,6 +318,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+    <!-- <script src="js/bundle.js"></script> -->
     <script>
         var srcUtils = "pl/js/intlTel/js/utils.js";
         var successUrl = 'https://www.monfex.com/ru/register/success';
@@ -344,6 +345,29 @@
             }
         }
     })
+</script>
+<script>
+$('.select2-selection').keydown((ev) => {
+  if (ev.which < 32)
+    return;
+  
+  var target = jQuery(ev.target).closest('.select2-container');
+  if (!target.length)
+    return;
+  
+  target = target.prev();
+  target.select2('open');
+  
+  var search = target.data('select2').dropdown.$search ||
+               target.data('select2').selection.$search;
+  
+  /* Safari does not have key */
+  var key = ev.key ? ev.key : String.fromCharCode(ev.which);
+  
+  /* filter function keys such as "Meta" */
+  if (key.length === 1)
+    search.val(search.val() + key);
+});
 </script>
 </body>
 </html>
