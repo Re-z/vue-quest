@@ -1,13 +1,13 @@
 const vue = new Vue({
     el: '.app',
     data: {
-        testIsShowed: true, //shows "page" with questions
+        testIsShowed: false, //shows "page" with questions
         currentStep: 0,
         stepResultIsShowed: false,
         chosenAnswer: '',
         chosenSellBuy: '',
         isChosenAnswerCorrect: false,
-        resultPopupIsShowed: true, //shows final popup
+        resultPopupIsShowed: false, //shows final popup
         timeCounter: 60, //time per question
         steps: [
             {

@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Monfex</title>
     <meta name="description" content="">
-
     <style>
+        
         .vertical-centered-box {
             position: absolute;
             width: 100%;
@@ -139,7 +139,6 @@
 </div>
 <!--    start vue app-->
     <div class="app" >
-
             <div class="pre"
                  v-show="!testIsShowed">
                 <div class="container">
@@ -189,14 +188,13 @@
                             <p class="mr-3 font-weight-bold">Прогресс: </p>
                             <ul class="d-flex steps__list">
                                 <li
-                                        v-for="(item, index) in steps"
-                                        :class="{'active': currentStepObj.id === index+1}"
+                                    v-for="(item, index) in steps"
+                                    :class="{'active': currentStepObj.id === index+1}"
                                 >
                                     {{item.id}}
                                 </li>
                             </ul>
                         </div>
-
                     </div>
 
                     <div class="row d-flex justify-content-between">
@@ -205,7 +203,6 @@
                                 <img class="img-fluid"
                                      :src="currentStepObj.mainImg" alt="">
                             </div>
-
                             <div class="mt-5">
                                 <h4> Выберите новость, которая относится к активу:</h4>
                                 <div class="row test__box-quest mt-3">
@@ -216,14 +213,13 @@
                                          :key="item"
                                     >
                                         <div
-                                                style="cursor: pointer"
-                                                class="card mb-3"
-                                                :class="{'bg-secondary':chosenAnswer === item,
-                                     'bg-light':chosenAnswer !== item
-                                    }"
+                                            style="cursor: pointer"
+                                            class="card mb-3"
+                                            :class="{'bg-secondary':chosenAnswer === item,
+                                                    'bg-light':chosenAnswer !== item
+                                                    }"
                                         >
                                             <div class="card-body">
-
                                                 <p class="card-text"><i>{{index +1}}. </i> {{ item }}</p>
                                             </div>
                                         </div>
@@ -311,14 +307,13 @@
     </div>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-<script  src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script  src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
-    <!-- <script src="js/bundle.js"></script> -->
     <script>
         var srcUtils = "pl/js/intlTel/js/utils.js";
         var successUrl = 'https://www.monfex.com/ru/register/success';
@@ -328,8 +323,7 @@
     <link rel="stylesheet" href="pl/css/form.css">
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        //hide preloader function
-
+        //hide preloader
         setTimeout(() => {
             const preloader = document.querySelector('#preloader'),
                 app = document.querySelector('.app');
@@ -345,29 +339,6 @@
             }
         }
     })
-</script>
-<script>
-$('.select2-selection').keydown((ev) => {
-  if (ev.which < 32)
-    return;
-  
-  var target = jQuery(ev.target).closest('.select2-container');
-  if (!target.length)
-    return;
-  
-  target = target.prev();
-  target.select2('open');
-  
-  var search = target.data('select2').dropdown.$search ||
-               target.data('select2').selection.$search;
-  
-  /* Safari does not have key */
-  var key = ev.key ? ev.key : String.fromCharCode(ev.which);
-  
-  /* filter function keys such as "Meta" */
-  if (key.length === 1)
-    search.val(search.val() + key);
-});
 </script>
 </body>
 </html>
